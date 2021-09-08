@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Plant</th>
+            <th>X</th>
+            <th>Y</th>
+            <th>Z</th>
+        </tr>
+
+        {% for item in data %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.x }}</td>
+            <td>{{ item.y }}</td>
+            <td>{{ item.z }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <table>
+        <tr>
+            <th>Latest Soil Moisture</th>
+            <th>Sensor Pin</th>
+        </tr>
+
+        <tr>
+            <td>{{ last_reading }}</td>
+            <td>{{ pin }}</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Region</th>
+            <th>Weather Code</th>
+            <th>Tempreature (9am)</th>
+            <th>Humidity</th>
+            <th>CloudCover</th>
+        </tr>
+
+        <tr>
+            <td>{{ weather.name }}</td>
+            <td>{{ weather.country }}</td>
+            <td>{{ weather.region }}</td>
+            <td>{{ weather.code }}</td>
+            <td>{{ weather.tempreature }}</td>
+            <td>{{ weather.humidity }}</td>
+            <td>{{ weather.cloudcover }}</td>
+        </tr>
+    </table>
+</body>
+</html>

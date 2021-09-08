@@ -1,0 +1,57 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS users (
+	id TEXT PRIMARY KEY NOT NULL UNIQUE,
+	token TEXT NOT NULL,
+	token_timeout TEXT NOT NULL,
+	user_role INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS unique_plants(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	farmbot_id INTEGER NOT NULL,
+	user_hash TEXT NOT NULL,
+	name TEXT NOT NULL,
+	x INTEGER NOT NULL,
+	y INTEGER NOT NULL,
+	z INTEGER NOT NULL,
+	active INTEGER NOT NULL,
+	FOREIGN KEY(user_hash) REFERENCES users(user_hash)
+);
+
+CREATE TABLE IF NOT EXISTS plants(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	unique_plant_id INTEGER,
+	moisture INTEGER NOT NULL,
+	width INTEGER NOT NULL,
+	height INTEGER NOT NULL,
+	r INTEGER NOT NULL,
+	g INTEGER NOT NULL,
+	b INTEGER NOT NULL,
+	weather_id INTEGER NOT NULL,
+	image_file TEXT NOT NULL,
+	date TEXT NOT NULL,
+	FOREIGN KEY(weather_id) REFERENCES weather(id),
+	FOREIGN KEY(unique_plant_id) REFERENCES unique_plants(id)
+);
+
+CREATE TABLE IF NOT EXISTS weather(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	date TEXT NOT NULL,
+	location_id INTEGER NOT NULL,
+	region TEXT NOT NULL,
+	country TEXT NOT NULL,
+	weather_code INTEGER NOT NULL,
+	temperature INTEGER NOT NULL,
+	humidity INTEGER NOT NULL,
+	uv_index INTEGER NOT NULL,
+	cloud_cover INTEGER NOT NULL,
+	FOREIGN KEY(location_id) REFERENCES locations(id)
+);
+
+CREATE TABLE IF NOT EXISTS locations(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name TEXT NOT NULL,
+  	user_hash TEXT NOT NULL,
+	FOREIGN KEY(user_hash) REFERENCES users(user_hash)
+);
